@@ -12,6 +12,7 @@ SOURCE_VERTEXID="1"
 # Create HDFS directory path same as current directory
 hadoop fs -mkdir -p "hdfs://$PWD"
 
+FILE=""
 # Remove any old copies of output directory on HDFS and Linux FS
 hadoop fs -rm -f -r "hdfs://$PWD/$OUTPUT_DIR"
 rm -rf "./$OUTPUT_DIR"
@@ -33,5 +34,5 @@ hadoop fs -get "hdfs://$PWD/$OUTPUT_DIR" .
 echo "Done! Checking Results..."
 
 
-DIFFERENCE="$(diff -U 0 <(cat $OUTPUT_DIR/part-0000* | sort) <(cat ~mikegoss/COMPx705Public/Labs/Lab4SampleOutputFull$SOURCE_VERTEXID/part-0000* | sort) | grep ^@ | wc -l)"
+DIFFERENCE="$(diff -U 0 <(cat $OUTPUT_DIR/part-0000* | sort) <(cat FILE | sort) | grep ^@ | wc -l)"
 echo -e "Lines Different From Real Results: ${DIFFERENCE}"
