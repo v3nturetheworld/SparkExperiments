@@ -4,6 +4,7 @@ INPUT_FILE="/u/home/mikegoss/COMPx705Public/data/Lab4Short/tiny_graph.csv"
 
 OUTPUT_DIR="$PWD/out_local"
 
+FILE=""
 # Please assign the start vertex ID here:
 SOURCE_VERTEXID="4"
 
@@ -13,5 +14,5 @@ spark-submit --class "Lab4" --master local[*] target/scala-2.11/lab4-playing-wit
 
 
 echo "checking results..."
-DIFFERENCE="$(diff -U 0 <(cat out_local/part-0000* | sort) <(cat ~mikegoss/COMPx705Public/Labs/Lab4SampleOutputShort$SOURCE_VERTEXID/part-0000* | sort) | grep ^@ | wc -l)"
+DIFFERENCE="$(diff -U 0 <(cat out_local/part-0000* | sort) <(cat FILE | sort) | grep ^@ | wc -l)"
 echo -e "Lines Different From Real Results: ${DIFFERENCE}"
